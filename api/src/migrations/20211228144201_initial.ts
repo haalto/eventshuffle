@@ -10,12 +10,12 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable('user', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
-    table.uuid('event_id').references('id').inTable('event');
+    table.text('name').notNullable();
   });
 
   await knex.schema.createTable('event_date', (table) => {
-    table.uuid('event_id').references('id').inTable('event');
-    table.date('date').unique();
+    table.uuid('event_id').references('id').inTable('event').notNullable();
+    table.date('date');
   });
 
   await knex.schema.createTable('vote', (table) => {

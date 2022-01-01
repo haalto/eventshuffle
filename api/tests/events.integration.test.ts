@@ -1,5 +1,5 @@
-describe('placeholder test', () => {
-  it('test if 1 is 1', () => {
+describe('events', () => {
+  it('creates ', () => {
     expect(1).toBe(1);
   });
 });
