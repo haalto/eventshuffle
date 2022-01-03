@@ -16,7 +16,9 @@
     "migrate:rollback": "npx knex --knexfile src/knex.ts migrate:rollback",
     "seed:make": "npx knex --knexfile src/knex.ts seed:make",
     "seed:run": "npx knex --knexfile src/knex.ts seed:run",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix"
   },
   "author": "Hannes Aaltonen",
   "license": "ISC",
@@ -24,12 +26,15 @@
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.0.3",
     "@types/ramda": "^0.27.62",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
+    "eslint": "^8.6.0",
     "jest": "^27.3.1",
     "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.2",
-    "prettier": "^2.5.1"
+    "typescript": "^4.5.2"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.23.2",

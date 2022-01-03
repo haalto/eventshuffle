@@ -19,9 +19,7 @@ export async function seed(knex: Knex): Promise<void> {
   const eventIds = await knex('event').insert(events).returning<string[]>('id');
 
   const eventDates = generateEventDates(eventIds);
-  const dates = await knex('event_date')
-    .insert(eventDates)
-    .returning<Date[]>('date');
+  await knex('event_date').insert(eventDates).returning<Date[]>('date');
 
   //Generate users
   const users = generateUsers(10);
@@ -29,7 +27,7 @@ export async function seed(knex: Knex): Promise<void> {
 
   const eventWithDates = (
     await Promise.all(eventIds.map(async id => await getEventWithDates(id)))
-  ).flatMap(event => (!!event ? [event] : []));
+  ).flatMap(event => (event ? [event] : []));
 
   if (!eventWithDates) {
     return console.error('No events with dates when generating seeds.');

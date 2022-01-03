@@ -1,4 +1,4 @@
-import { name, company, date, datatype } from 'faker';
+import { name, company, date } from 'faker';
 import { times } from 'ramda';
 import { generateRandomNumberBetween, pickRandomElement } from './helpers';
 
