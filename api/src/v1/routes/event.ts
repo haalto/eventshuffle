@@ -15,7 +15,7 @@ export const eventRoutes = (server: FastifyInstance) => {
         response: EventListResponse200Schema,
       },
     },
-    getEvents
+    getEvents,
   );
   server.get(
     '/:id',
@@ -24,7 +24,7 @@ export const eventRoutes = (server: FastifyInstance) => {
         response: GetEventResponse200Schema,
       },
     },
-    getEvent
+    getEvent,
   );
   server.post(
     '/',
@@ -34,7 +34,7 @@ export const eventRoutes = (server: FastifyInstance) => {
         response: PostEventResponse200Schema,
       },
     },
-    postEvent
+    postEvent,
   );
   return server;
 };

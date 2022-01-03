@@ -42,10 +42,10 @@ export const getEventWithDates = async (id: string) => {
 
 export const groupVotesByDate = (voteRows: (UserRow & VoteRow)[]) => {
   // Get unique dates
-  const dates = [...new Set(voteRows.map((row) => row.date))];
-  const votes = dates.map((date) => ({
+  const dates = [...new Set(voteRows.map(row => row.date))];
+  const votes = dates.map(date => ({
     date,
-    people: voteRows.filter((row) => row.date === date).map((v) => v.name),
+    people: voteRows.filter(row => row.date === date).map(v => v.name),
   }));
   return votes;
 };

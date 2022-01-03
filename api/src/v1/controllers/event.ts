@@ -3,7 +3,7 @@ import { getAllEvents, getEventWithDatesAndVotes } from '../services/event';
 
 export const getEvent = async (
   request: FastifyRequest,
-  reply: FastifyReply
+  reply: FastifyReply,
 ) => {
   const { id } = request.params as { id: string };
   const event = await getEventWithDatesAndVotes(id);
@@ -17,7 +17,7 @@ export const postEvent = (request: FastifyRequest, reply: FastifyReply) => {
 
 export const getEvents = async (
   request: FastifyRequest,
-  reply: FastifyReply
+  reply: FastifyReply,
 ) => {
   const events = await getAllEvents();
   reply.send({ events });

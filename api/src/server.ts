@@ -12,7 +12,7 @@ const buildServer = () => {
 
 export const runServer = async () => {
   const server = buildServer();
-  server.listen(port, host, (err) => {
+  server.listen(port, host, err => {
     if (err) {
       console.error(err);
       process.exit(1);

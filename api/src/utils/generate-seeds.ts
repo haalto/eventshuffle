@@ -7,22 +7,22 @@ export const generateEvents = (n: number) => {
     () => ({
       name: `${name.firstName()}'s ${company.bsBuzz()}`,
     }),
-    n
+    n,
   );
 };
 
 export const generateEventDates = (eventIds: string[]) => {
   return eventIds
-    .map((id) => ({
+    .map(id => ({
       id,
       dates: date.betweens(
         '2021-01-01',
         '2021-01-05',
-        generateRandomNumberBetween(3, 8)
+        generateRandomNumberBetween(3, 8),
       ),
     }))
-    .map((eventDates) =>
-      eventDates.dates.map((date) => ({ event_id: eventDates.id, date }))
+    .map(eventDates =>
+      eventDates.dates.map(date => ({ event_id: eventDates.id, date })),
     )
     .flat();
 };
@@ -32,16 +32,16 @@ export const generateUsers = (n: number) => {
     () => ({
       name: name.firstName(),
     }),
-    n
+    n,
   );
 };
 
 export const generateVotesForEvent = (
   event: { id: string; dates: Date[] },
-  userIds: string[]
+  userIds: string[],
 ) => {
   console.log(event.dates);
-  const votes = userIds.map((userId) => ({
+  const votes = userIds.map(userId => ({
     event_id: event.id,
     user_id: userId,
     date: pickRandomElement(event.dates),
