@@ -2,7 +2,7 @@ import {
   generateEventDates,
   generateEvents,
 } from '../src/utils/generate-seeds';
-import { groupVotesByDate } from '../src/v1/services/event';
+import { groupVotesByDate } from '../src/services/event';
 
 describe('generate seed data', () => {
   it('generate n amount of events', () => {

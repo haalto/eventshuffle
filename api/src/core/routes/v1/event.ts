@@ -1,11 +1,11 @@
 import { FastifyInstance } from 'fastify';
-import { getEvents, getEvent, postEvent } from '../controllers/event';
+import { getEvents, getEvent, postEvent } from '../../controllers/v1/event';
 import {
   EventListResponse200Schema,
   GetEventResponse200Schema,
   PostEventBodySchema,
   PostEventResponse200Schema,
-} from '../schemas';
+} from '../../schemas/v1';
 
 export const eventRoutes = (server: FastifyInstance) => {
   server.get(

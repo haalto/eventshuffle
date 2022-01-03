@@ -5,7 +5,7 @@ import {
   generateUsers,
   generateVotesForEvent,
 } from '../utils/generate-seeds';
-import { getEventWithDates } from '../v1/services/event';
+import { getEventWithDates } from '../services/event';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries

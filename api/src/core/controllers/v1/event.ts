@@ -1,5 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { getAllEvents, getEventWithDatesAndVotes } from '../services/event';
+import {
+  getAllEvents,
+  getEventWithDatesAndVotes,
+} from '../../../services/event';
 
 export const getEvent = async (
   request: FastifyRequest,

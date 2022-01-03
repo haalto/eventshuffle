@@ -1,6 +1,6 @@
-import db from '../../data-layer/postgres';
-import { EventRow, UserRow, VoteRow } from '../../types';
-import { Event } from '../schemas';
+import db from '../data-layer/postgres';
+import { EventRow, UserRow, VoteRow } from '../types';
+import { Event } from '../core/schemas/v1';
 
 export const getAllEvents = async () => {
   return await db<EventRow>('event');

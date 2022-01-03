@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "nodemon ./src/index.ts",
+    "start": "nodemon ./src/server.ts",
     "test": "jest \"^(.*/)*(.*\\.)*unit.test.ts$\"",
     "test:all": "docker-compose -f docker-compose.test.yaml up --build",
     "test:watch": "jest --watchAll",
@@ -18,7 +18,7 @@
     "seed:run": "npx knex --knexfile src/knex.ts seed:run",
     "format": "prettier --write ."
   },
-  "author": "",
+  "author": "Hannes Aaltonen",
   "license": "ISC",
   "devDependencies": {
     "@types/faker": "^5.5.9",
