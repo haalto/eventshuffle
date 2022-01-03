@@ -6,10 +6,10 @@ const { dbName, dbPassowrd, dbUser, dbHost } = config;
 //Database configuration for Knex
 const DB_CONFIG: Knex.Config = {
   migrations: {
-    directory: './migrations',
+    directory: '../migrations',
   },
   seeds: {
-    directory: './seeds',
+    directory: '../seeds',
   },
   client: 'pg',
   connection: {

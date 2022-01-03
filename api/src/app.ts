@@ -1,5 +1,5 @@
 import Fastify from 'fastify';
-import { eventRoutes } from './core/routes/v1/event';
+import { eventRoutes } from './domain/Event/v1/routes';
 
 export const app = () => {
   const server = Fastify({ logger: true });

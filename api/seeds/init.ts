@@ -1,17 +1,17 @@
 import { Knex } from 'knex';
+import { getEventWithDates } from '../src/domain/Event/services';
 import {
   generateEventDates,
   generateEvents,
   generateUsers,
   generateVotesForEvent,
-} from '../utils/generate-seeds';
-import { getEventWithDates } from '../services/event';
+} from '../src/utils/generate-seeds';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
-  await knex('vote');
+  await knex('vote').del();
   await knex('event_date').del();
-  await knex('user');
+  await knex('user').del();
   await knex('event').del();
 
   //Generate events

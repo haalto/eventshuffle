@@ -1,8 +1,8 @@
+import { groupVotesByDate } from '../src/domain/Event/services';
 import {
   generateEventDates,
   generateEvents,
 } from '../src/utils/generate-seeds';
-import { groupVotesByDate } from '../src/services/event';
 
 describe('generate seed data', () => {
   it('generate n amount of events', () => {
@@ -27,9 +27,27 @@ describe('generate seed data', () => {
 describe('helper functions', () => {
   it('groupByVotes returns database rows grouped by date with people', () => {
     const data = [
-      { name: 'Väyrynen', date: '2021-10-01' },
-      { name: 'Pumba', date: '2021-10-01' },
-      { name: 'Timon', date: '2021-10-02' },
+      {
+        id: 'foo',
+        event_id: 'bar',
+        user_id: 'baz',
+        name: 'Väyrynen',
+        date: '2021-10-01',
+      },
+      {
+        id: 'foo',
+        event_id: 'bar',
+        user_id: 'baz',
+        name: 'Pumba',
+        date: '2021-10-01',
+      },
+      {
+        id: 'foo',
+        event_id: 'bar',
+        user_id: 'baz',
+        name: 'Timon',
+        date: '2021-10-02',
+      },
     ];
     const result = groupVotesByDate(data as any);
 
