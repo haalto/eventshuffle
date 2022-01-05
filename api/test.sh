@@ -1,0 +1,1 @@
+npm run migrate:latest && npm run test:watch

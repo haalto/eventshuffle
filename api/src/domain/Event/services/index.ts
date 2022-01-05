@@ -1,14 +1,17 @@
 import { EventRow, UserRow, VoteRow } from '../types';
 import { uniq } from 'ramda';
 import db from '../../../data-layer/postgres';
+import { DBTables } from '../../../core/enums';
+
+const { EVENT, USER, EVENT_DATE, VOTE } = DBTables;
 
 export const getEventById = async (id: string) => {
-  const result = await db<EventRow>('event').where({ id }).first();
+  const result = await db<EventRow>(EVENT).where({ id }).first();
   return result;
 };
 
 export const getEventDates = async (id: string) => {
-  const dates = await db('event_date')
+  const dates = await db(EVENT_DATE)
     .select('date')
     .where({ event_id: id })
     .pluck<Date[]>('date');
@@ -16,9 +19,9 @@ export const getEventDates = async (id: string) => {
 };
 
 export const getEventVotesWithUser = async (id: string) => {
-  const votes = await db<VoteRow>('vote')
+  const votes = await db<VoteRow>(VOTE)
     .where({ event_id: id })
-    .leftJoin<UserRow>('user', 'vote.user_id', 'user.id');
+    .leftJoin<UserRow>(USER, 'vote.user_id', 'user.id');
   return votes;
 };
 
@@ -39,7 +42,7 @@ export const getEventWithDates = async (id: string) => {
  * Get all events
  */
 export const getAllEvents = async () => {
-  return await db<EventRow>('event');
+  return await db<EventRow>(VOTE);
 };
 
 /**
@@ -48,13 +51,13 @@ export const getAllEvents = async () => {
 export const createEvent = async (name: string, dates: string[]) => {
   return await db.transaction(async trx => {
     const id = (
-      await db<EventRow>('event')
+      await db<EventRow>(VOTE)
         .transacting(trx)
         .insert({ name })
         .returning<Pick<EventRow, 'id'>[]>('id')
     )[0];
 
-    await db('event_date')
+    await db(EVENT_DATE)
       .transacting(trx)
       .insert(dates.map(date => ({ event_id: id, date })));
 
@@ -111,7 +114,7 @@ const getSuitableDates = (votes: (VoteRow & UserRow)[]) => {
 };
 
 export const getEventNameById = async (id: string) => {
-  const result = await db('event')
+  const result = await db(EVENT)
     .select<Pick<EventRow, 'name'>>('name')
     .where({ id })
     .first();
@@ -142,12 +145,12 @@ export const createVote = async (
 ) => {
   await db.transaction(async trx => {
     const userId = (
-      await db('user')
+      await db(USER)
         .transacting(trx)
         .insert({ name })
         .returning<Pick<UserRow, 'id'>[]>('id')
     )[0];
-    await db('vote')
+    await db(VOTE)
       .transacting(trx)
       .insert(
         votes.map(vote => ({ event_id: eventId, user_id: userId, date: vote })),

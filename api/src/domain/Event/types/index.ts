@@ -8,13 +8,6 @@ export type EventDateRow = {
   date: Date;
 };
 
-export type ShowEventRaw = {
-  id: string;
-  name: string;
-  event_id: string;
-  date: Date;
-}[];
-
 export type VoteRow = {
   event_id: string;
   user_id: string;

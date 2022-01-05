@@ -9,12 +9,12 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    networks:
+      - testapi
   testrunner:
     build:
       context: ./
       dockerfile: Dockerfile.test
-    depends_on:
-      - testdb
     ports:
       - '5000'
     volumes:
@@ -22,5 +22,10 @@ services:
       - /usr/src/app/node_modules
     environment:
       DB_HOST: testdb
+    depends_on:
+      - testdb
+    networks:
+      - testapi
+    command: ['./wait-for-it.sh', 'testdb:5432', '--', './test.sh']
 networks:
   testapi:
