@@ -3,8 +3,8 @@ import {
   getEvents,
   getEvent,
   postEvent,
-  getEventResult,
   postVote,
+  getEventResults,
 } from './controllers';
 import {
   GetEventListResponseSchema,
@@ -40,13 +40,14 @@ export const eventRoutes = (server: FastifyInstance) => {
     getEvent,
   );
   server.get(
-    '/:id/result',
+    '/:id/results',
     {
       schema: {
+        params: GetEventResultParamsSchema,
         response: GetEventResultResponseSchema,
       },
     },
-    getEventResult,
+    getEventResults,
   );
   server.post(
     '/',

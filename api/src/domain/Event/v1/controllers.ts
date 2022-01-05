@@ -3,7 +3,7 @@ import {
   createEvent,
   createVote,
   getAllEvents,
-  getEventResultById,
+  getEventResultsById,
   getEventWithDatesAndVotesById,
 } from '../services';
 
@@ -46,12 +46,12 @@ export const getEvents = async (
   reply.send({ events });
 };
 
-export const getEventResult = async (
+export const getEventResults = async (
   request: FastifyRequest<{ Params: GetEventResultParams }>,
   reply: FastifyReply,
 ) => {
   const { id } = request.params;
-  const event = await getEventResultById(id);
+  const event = await getEventResultsById(id);
   reply.send(event);
 };
 

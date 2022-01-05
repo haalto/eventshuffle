@@ -76,7 +76,6 @@ export const groupVotesByDate = (voteRows: (UserRow & VoteRow)[]) => {
     date,
     people: userWhoVotedByDate(date),
   }));
-  console.log(votes[0].people);
   return votes;
 };
 
@@ -102,13 +101,35 @@ export const getEventWithDatesAndVotesById = async (id: string) => {
   return { id, name, dates, votes };
 };
 
+const getSuitableDates = (votes: (VoteRow & UserRow)[]) => {
+  const uniqueUsers = uniq(votes.map(vote => vote.user_id)).length;
+  const groupedVotes = groupVotesByDate(votes);
+  const suitableDates = groupedVotes.filter(
+    group => group.people.length === uniqueUsers,
+  );
+  return suitableDates;
+};
+
+export const getEventNameById = async (id: string) => {
+  const result = await db('event')
+    .select<Pick<EventRow, 'name'>>('name')
+    .where({ id })
+    .first();
+  return result?.name;
+};
+
 /**
  * Get event result
  */
-export const getEventResultById = async (id: string) => {
-  //TODO: Actually calculate votes
-  const result = await getEventVotesWithUser(id);
-  return result;
+export const getEventResultsById = async (id: string) => {
+  const name = await getEventNameById(id);
+  if (!name) {
+    return null;
+  }
+  const votes = await getEventVotesWithUser(id);
+  const suitableDates = getSuitableDates(votes);
+
+  return { id, name, suitableDates };
 };
 
 /**
@@ -126,7 +147,6 @@ export const createVote = async (
         .insert({ name })
         .returning<Pick<UserRow, 'id'>[]>('id')
     )[0];
-    console.log(userId);
     await db('vote')
       .transacting(trx)
       .insert(
