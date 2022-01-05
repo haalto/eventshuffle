@@ -55,7 +55,6 @@ export const eventRoutes = (server: FastifyInstance) => {
       schema: {
         body: PostEventBodySchema,
         response: PostEventResponseSchema,
-        params: GetEventResultParamsSchema,
       },
     },
     postEvent,

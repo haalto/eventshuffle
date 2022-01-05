@@ -42,7 +42,7 @@ export const getEventWithDates = async (id: string) => {
  * Get all events
  */
 export const getAllEvents = async () => {
-  return await db<EventRow>(VOTE);
+  return await db<EventRow>(EVENT);
 };
 
 /**
@@ -51,7 +51,7 @@ export const getAllEvents = async () => {
 export const createEvent = async (name: string, dates: string[]) => {
   return await db.transaction(async trx => {
     const id = (
-      await db<EventRow>(VOTE)
+      await db<EventRow>(EVENT)
         .transacting(trx)
         .insert({ name })
         .returning<Pick<EventRow, 'id'>[]>('id')

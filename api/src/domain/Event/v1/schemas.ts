@@ -33,7 +33,7 @@ export const GetEventResponseSchema = {
 //Get all events
 export const GetEventListResponseSchema = {
   200: Type.Object({
-    events: Type.Array(EventSchema),
+    events: Type.Array(EventSchema, { minItems: 0 }),
   }),
 };
 
