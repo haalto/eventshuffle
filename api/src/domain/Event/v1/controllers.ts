@@ -1,8 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+import { checkIfDateStringsAreIncludedInArrayOfDates } from '../../../utils/helpers';
 import {
   createEvent,
   createVote,
   getAllEvents,
+  getEventDates,
   getEventResultsById,
   getEventWithDatesAndVotesById,
 } from '../services';
@@ -61,6 +63,14 @@ export const postVote = async (
 ) => {
   const { id } = request.params;
   const { name, votes } = request.body;
+  const eventDates = await getEventDates(id);
+
+  //Validate that vote dates belong to the event
+  if (!checkIfDateStringsAreIncludedInArrayOfDates(votes, eventDates)) {
+    reply.status(400);
+    reply.send({ message: 'dates do not belong to event' });
+  }
+
   await createVote(id, name, votes);
   const event = await getEventWithDatesAndVotesById(id);
   reply.send(event);

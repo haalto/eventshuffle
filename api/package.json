@@ -10,7 +10,6 @@
     "start": "nodemon ./src/server.ts",
     "test": "jest \"^(.*/)*(.*\\.)*unit.test.ts$\"",
     "test:all": "docker-compose -f docker-compose.test.yaml build && docker-compose -f docker-compose.test.yaml run --rm testrunner && docker-compose -f docker-compose.test.yaml down",
-    "test:watch": "jest --watchAll",
     "migrate:make": "npx knex --knexfile src/knex.ts migrate:make",
     "migrate:latest": "npx knex --knexfile src/knex.ts migrate:latest",
     "migrate:rollback": "npx knex --knexfile src/knex.ts migrate:rollback",

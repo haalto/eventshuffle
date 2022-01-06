@@ -1,1 +1,2 @@
-npm run migrate:latest && npm run test:watch
+#!/usr/bin/env bash
+npm run migrate:latest && npx jest --watchAll --detectOpenHandles

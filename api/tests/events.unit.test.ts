@@ -3,6 +3,7 @@ import {
   generateEventDates,
   generateEvents,
 } from '../src/utils/generate-seeds';
+import { checkIfDateStringsAreIncludedInArrayOfDates } from '../src/utils/helpers';
 
 describe('generate seed data', () => {
   it('generate n amount of events', () => {
@@ -49,11 +50,26 @@ describe('helper functions', () => {
         date: '2021-10-02',
       },
     ];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = groupVotesByDate(data as any);
 
     expect(result).toEqual([
       { date: '2021-10-01', people: ['Väyrynen', 'Pumba'] },
       { date: '2021-10-02', people: ['Timon'] },
     ]);
+  });
+  it('returns true if all the dates are included in array', () => {
+    expect(
+      checkIfDateStringsAreIncludedInArrayOfDates(
+        ['2012-03-03', '2012-02-01'],
+        [new Date('2012-03-03'), new Date('2012-02-01')],
+      ),
+    ).toBe(true);
+    expect(
+      checkIfDateStringsAreIncludedInArrayOfDates(
+        ['2012-03-08'],
+        [new Date('2012-03-03'), new Date('2012-02-01')],
+      ),
+    ).toBe(false);
   });
 });
