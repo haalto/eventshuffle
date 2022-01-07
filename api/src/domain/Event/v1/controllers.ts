@@ -24,8 +24,7 @@ export const getEvent = async (
   const { id } = request.params;
   const event = await getEventWithDatesAndVotesById(id);
   if (!event) {
-    reply.status(404);
-    reply.send({ message: 'event not found' });
+    reply.notFound();
   }
   reply.send(event);
 };

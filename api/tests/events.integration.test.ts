@@ -1,10 +1,13 @@
+import { createVote } from '../src/domain/Event/services';
 import { baseUrl, build, cleanDatabase, createTestEvent } from './helpers';
 import { testEvent1 } from './test-data';
+import db from '../src/data-layer/postgres';
+import { UserRow } from '../src/domain/Event/types';
+import { DBTables } from '../src/core/enums';
 
 const app = build();
 
 describe('events happy path', () => {
-  beforeAll(async () => await cleanDatabase());
   beforeEach(async () => await cleanDatabase());
 
   it('creates new event', async () => {
@@ -50,11 +53,11 @@ describe('events happy path', () => {
       dates: ['2021-12-12', '2021-12-13'],
       votes: [
         {
-          date: '2021-12-12',
+          date: '2021-12-13',
           people: ['Post Malone'],
         },
         {
-          date: '2021-12-13',
+          date: '2021-12-12',
           people: ['Post Malone'],
         },
       ],
@@ -109,6 +112,8 @@ describe('events happy path', () => {
 });
 
 describe('error cases', () => {
+  beforeEach(async () => await cleanDatabase());
+
   it('returns 400 error when event is post without dates', async () => {
     const res = await app.inject({
       method: 'POST',
@@ -171,5 +176,25 @@ describe('error cases', () => {
     });
     expect(res.statusCode).toBe(400);
     expect(res.json().message).toEqual('dates do not belong to event');
+  });
+
+  it('return 404 when trying to get non-existing event', async () => {
+    const res = await app.inject({
+      method: 'GET',
+      url: `${baseUrl}/event/8fa3ff87-d405-4634-a1bb-ccd62f61e2af`,
+    });
+    expect(res.statusCode).toBe(404);
+  });
+});
+
+describe('event services', () => {
+  beforeEach(async () => await cleanDatabase());
+
+  it('user is not created when creating a vote for non-existent event', async () => {
+    try {
+      expect(await createVote('', 'Pekka', ['2012-01-01'])).toThrow();
+    } catch (err) {}
+    const users = await db<UserRow>(DBTables.USER);
+    expect(users).toEqual([]);
   });
 });

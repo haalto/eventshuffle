@@ -3,7 +3,7 @@ import { config } from './config';
 
 const { port, host } = config;
 (async () => {
-  const server = app();
+  const server = await app();
   server.listen(port, host, err => {
     if (err) {
       console.error(err);

@@ -7,11 +7,12 @@ const { EVENT_DATE, EVENT, VOTE, USER } = DBTables;
 
 export const baseUrl = 'api/v1';
 
+const tables = [EVENT, VOTE, USER, EVENT_DATE];
+
 export const cleanDatabase = async () => {
-  await db(VOTE).del();
-  await db(EVENT_DATE).del();
-  await db(USER).del();
-  await db(EVENT).del();
+  tables.forEach(
+    async table => await db.raw(`TRUNCATE TABLE ${table} CASCADE`),
+  );
 };
 
 export const build = () => {

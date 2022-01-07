@@ -21,12 +21,13 @@ export const getEventDates = async (id: string) => {
 export const getEventVotesWithUser = async (id: string) => {
   const votes = await db<VoteRow>(VOTE)
     .where({ event_id: id })
-    .leftJoin<UserRow>(USER, 'vote.user_id', 'user.id');
+    .leftJoin<UserRow>(USER, 'vote.user_id', 'event_user.id');
   return votes;
 };
 
 export const getEventWithDates = async (id: string) => {
   const event = await getEventById(id);
+
   if (!event) {
     return null;
   }
