@@ -1,6 +1,6 @@
 import { groupVotesByDate } from './services';
 
-it('groupByVotes returns database rows grouped by date with people', () => {
+it('returns database rows grouped by date with people', () => {
   const data = [
     {
       id: 'foo',

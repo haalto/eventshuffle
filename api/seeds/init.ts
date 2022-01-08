@@ -1,5 +1,5 @@
 import { Knex } from 'knex';
-import { getEventWithDates } from '../src/domain/Event/services';
+import { getEventWithDates } from '../src/domain/Event/services/services';
 import {
   generateEventDates,
   generateEvents,
