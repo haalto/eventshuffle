@@ -1,4 +1,4 @@
-import { createVote } from '../src/domain/Event/services';
+import { createVote } from '../src/domain/Event/services/services';
 import { baseUrl, build, cleanDatabase, createTestEvent } from './helpers';
 import { testEvent1 } from './test-data';
 import db from '../src/data-layer/postgres';
@@ -187,7 +187,7 @@ describe('error cases', () => {
   });
 });
 
-describe('event services', () => {
+describe('event services integration tests', () => {
   beforeEach(async () => await cleanDatabase());
 
   it('user is not created when creating a vote for non-existent event', async () => {

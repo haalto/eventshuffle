@@ -7,7 +7,7 @@ import {
   getEventDates,
   getEventResultsById,
   getEventWithDatesAndVotesById,
-} from '../services';
+} from '../services/services';
 
 import {
   GetEventParams,
