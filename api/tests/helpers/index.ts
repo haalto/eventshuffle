@@ -1,4 +1,4 @@
-import { DBTables } from '../../src/core/enums';
+import { DBTables } from '../../src/general/enums';
 import db from '../../src/data-layer/postgres';
 import { app } from '../../src/app';
 import { FastifyInstance } from 'fastify';

@@ -1,7 +1,7 @@
 import { EventRow, UserRow, VoteRow } from '../types';
 import { uniq } from 'ramda';
 import db from '../../../data-layer/postgres';
-import { DBTables } from '../../../core/enums';
+import { DBTables } from '../../../general/enums';
 
 const { EVENT, USER, EVENT_DATE, VOTE } = DBTables;
 

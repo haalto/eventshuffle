@@ -1,4 +1,3 @@
-import { groupVotesByDate } from '../domain/Event/services/services';
 import { generateEventDates, generateEvents } from './generate-seeds';
 import { checkIfDateStringsAreIncludedInArrayOfDates } from './helpers';
 

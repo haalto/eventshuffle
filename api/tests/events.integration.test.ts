@@ -193,9 +193,7 @@ describe('event services', () => {
   it('user is not created when creating a vote for non-existent event', async () => {
     try {
       expect(await createVote('', 'Pekka', ['2012-01-01'])).toThrow();
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) {}
     const users = await db<UserRow>(DBTables.USER);
     expect(users).toEqual([]);
   });
