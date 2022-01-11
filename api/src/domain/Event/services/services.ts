@@ -1,5 +1,5 @@
 import { EventRow, UserRow, VoteRow } from '../types';
-import { uniq } from 'ramda';
+import { pipe, uniq } from 'ramda';
 import db from '../../../data-layer/postgres';
 import { DBTables } from '../../../general/enums';
 
@@ -69,11 +69,13 @@ export const createEvent = async (name: string, dates: string[]) => {
 export const groupVotesByDate = (voteRows: (UserRow & VoteRow)[]) => {
   // Get unique dates
   const uniqueDates = uniq(voteRows.map(vote => vote.date));
+
   const userWhoVotedByDate = (date: Date) => {
     const users = voteRows.filter(
       row => row.date.toString() === date.toString(),
     );
-    return users.map(user => user.name);
+    const uniqueUsers = uniq(users);
+    return uniqueUsers.map(user => user.name);
   };
 
   const votes = uniqueDates.map(date => ({
@@ -105,9 +107,10 @@ export const getEventWithDatesAndVotesById = async (id: string) => {
   return { id, name, dates, votes };
 };
 
-const getSuitableDates = (votes: (VoteRow & UserRow)[]) => {
+export const getSuitableDates = (votes: (VoteRow & UserRow)[]) => {
   const uniqueUsers = uniq(votes.map(vote => vote.user_id)).length;
   const groupedVotes = groupVotesByDate(votes);
+  console.log(groupedVotes);
   const suitableDates = groupedVotes.filter(
     group => group.people.length === uniqueUsers,
   );

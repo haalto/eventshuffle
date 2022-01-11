@@ -18,7 +18,7 @@ export const generateEventDates = (eventIds: string[]) => {
       dates: date.betweens(
         '2021-01-01',
         '2021-01-05',
-        generateRandomNumberBetween(3, 8),
+        generateRandomNumberBetween(1, 3),
       ),
     }))
     .map(eventDates =>
@@ -40,11 +40,24 @@ export const generateVotesForEvent = (
   event: { id: string; dates: Date[] },
   userIds: string[],
 ) => {
-  console.log(event.dates);
+  //Have atleast one date which is ok for every user.
+  const sameDateVotes = userIds.map(userId => ({
+    event_id: event.id,
+    user_id: userId,
+    date: event.dates[0],
+  }));
+
+  sameDateVotes.map(vote => ({
+    event_id: event.id,
+    user_id: vote.user_id,
+    date: pickRandomElement(event.dates),
+  }));
+
   const votes = userIds.map(userId => ({
     event_id: event.id,
     user_id: userId,
     date: pickRandomElement(event.dates),
   }));
-  return votes;
+
+  return votes.concat(sameDateVotes);
 };

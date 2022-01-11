@@ -11,7 +11,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('vote').del();
   await knex('event_date').del();
-  await knex('user').del();
+  await knex('event_user').del();
   await knex('event').del();
 
   //Generate events
@@ -22,8 +22,10 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('event_date').insert(eventDates).returning<Date[]>('date');
 
   //Generate users
-  const users = generateUsers(10);
-  const userIds = await knex('user').insert(users).returning<string[]>('id');
+  const users = generateUsers(5);
+  const userIds = await knex('event_user')
+    .insert(users)
+    .returning<string[]>('id');
 
   const eventWithDates = (
     await Promise.all(eventIds.map(async id => await getEventWithDates(id)))

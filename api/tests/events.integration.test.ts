@@ -11,11 +11,10 @@ describe('event', () => {
   beforeEach(async () => await cleanDatabase());
 
   it('POST: /event -- creates new event', async () => {
-    const newEvent = { name: 'test event1', dates: ['2021-12-12'] };
     const res = await app.inject({
       method: 'POST',
       url: `${baseUrl}/event`,
-      payload: newEvent,
+      payload: testEvent1,
     });
     expect(res.statusCode).toBe(200);
   });
@@ -30,14 +29,10 @@ describe('event', () => {
   });
 
   it('POST /event:id/vote -- user can vote', async () => {
-    const newEvent = {
-      name: 'test event1',
-      dates: ['2021-12-12', '2021-12-13'],
-    };
     const res = await app.inject({
       method: 'POST',
       url: `${baseUrl}/event`,
-      payload: newEvent,
+      payload: testEvent1,
     });
     const { id } = await res.json();
     const vote = { name: 'Post Malone', votes: ['2021-12-12', '2021-12-13'] };
