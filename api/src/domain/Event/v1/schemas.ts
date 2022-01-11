@@ -1,5 +1,5 @@
 import { Type, Static } from '@sinclair/typebox';
-import { DateSchema, uuidSchema } from '../../../core/schemas';
+import { DateSchema, uuidSchema } from '../../../general/schemas';
 
 //Items
 export const EventSchema = Type.Object({

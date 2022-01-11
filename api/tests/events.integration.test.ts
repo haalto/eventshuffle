@@ -3,7 +3,7 @@ import { baseUrl, build, cleanDatabase, createTestEvent } from './helpers';
 import { testEvent1 } from './test-data';
 import db from './helpers/postgres';
 import { UserRow } from '../src/domain/Event/types';
-import { DBTables } from '../src/core/enums';
+import { DBTables } from '../src/general/enums';
 
 const app = build();
 
@@ -193,7 +193,9 @@ describe('event services', () => {
   it('user is not created when creating a vote for non-existent event', async () => {
     try {
       expect(await createVote('', 'Pekka', ['2012-01-01'])).toThrow();
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
     const users = await db<UserRow>(DBTables.USER);
     expect(users).toEqual([]);
   });
