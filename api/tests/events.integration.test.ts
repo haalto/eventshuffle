@@ -1,16 +1,16 @@
 import { createVote } from '../src/domain/Event/services/services';
 import { baseUrl, build, cleanDatabase, createTestEvent } from './helpers';
 import { testEvent1 } from './test-data';
-import db from '../src/data-layer/postgres';
+import db from './helpers/postgres';
 import { UserRow } from '../src/domain/Event/types';
 import { DBTables } from '../src/core/enums';
 
 const app = build();
 
-describe('events happy path', () => {
+describe('event', () => {
   beforeEach(async () => await cleanDatabase());
 
-  it('creates new event', async () => {
+  it('POST: /event -- creates new event', async () => {
     const newEvent = { name: 'test event1', dates: ['2021-12-12'] };
     const res = await app.inject({
       method: 'POST',
@@ -20,7 +20,7 @@ describe('events happy path', () => {
     expect(res.statusCode).toBe(200);
   });
 
-  it('returns empty list of events', async () => {
+  it('GET: /event/list -- returns empty list of events', async () => {
     const res = await app.inject({
       method: 'GET',
       url: `${baseUrl}/event/list`,
@@ -29,7 +29,7 @@ describe('events happy path', () => {
     expect(res.json()).toEqual({ events: [] });
   });
 
-  it('user can vote', async () => {
+  it('POST /event:id/vote -- user can vote', async () => {
     const newEvent = {
       name: 'test event1',
       dates: ['2021-12-12', '2021-12-13'],
@@ -64,7 +64,7 @@ describe('events happy path', () => {
     });
   });
 
-  it('return event result', async () => {
+  it('GET: event/:id/result -- return event result', async () => {
     const newEvent = {
       name: 'test event1',
       dates: ['2021-12-12', '2021-12-13'],
@@ -114,7 +114,7 @@ describe('events happy path', () => {
 describe('error cases', () => {
   beforeEach(async () => await cleanDatabase());
 
-  it('returns 400 error when event is post without dates', async () => {
+  it('POST: /event -- returns 400 error when event is post without dates', async () => {
     const res = await app.inject({
       method: 'POST',
       url: `${baseUrl}/event`,
@@ -126,7 +126,7 @@ describe('error cases', () => {
     );
   });
 
-  it('returns 400 error when event is posted without name', async () => {
+  it('POST: /event -- returns 400 error when event is posted without name', async () => {
     const res = await app.inject({
       method: 'POST',
       url: `${baseUrl}/event`,
@@ -138,7 +138,7 @@ describe('error cases', () => {
     );
   });
 
-  it('returns 400 error when voting without name', async () => {
+  it('POST: /event/:id/vote -- returns 400 error when voting without name', async () => {
     const id = await createTestEvent(app, testEvent1);
     const vote = { votes: ['2021-12-12', '2021-12-13'] };
     const res = await app.inject({
@@ -152,7 +152,7 @@ describe('error cases', () => {
     );
   });
 
-  it('returns 400 error when voting without dates', async () => {
+  it('POST: /event/:id/vote -- returns 400 error when voting without dates', async () => {
     const id = await createTestEvent(app, testEvent1);
     const vote = { name: testEvent1.name };
     const res = await app.inject({
@@ -166,7 +166,7 @@ describe('error cases', () => {
     );
   });
 
-  it('returns 400 error when user tries to vote for date which is not included in the event', async () => {
+  it('POST: /event/:id/vote -- returns 400 error when user tries to vote for a date which is not included in the event', async () => {
     const id = await createTestEvent(app, testEvent1);
     const vote = { name: 'Moro', votes: ['2012-03-12'] };
     const res = await app.inject({
@@ -178,7 +178,7 @@ describe('error cases', () => {
     expect(res.json().message).toEqual('dates do not belong to event');
   });
 
-  it('return 404 when trying to get non-existing event', async () => {
+  it('GET: /event/:id -- return 404 when trying to get non-existing event', async () => {
     const res = await app.inject({
       method: 'GET',
       url: `${baseUrl}/event/8fa3ff87-d405-4634-a1bb-ccd62f61e2af`,
@@ -187,7 +187,7 @@ describe('error cases', () => {
   });
 });
 
-describe('event services integration tests', () => {
+describe('event services', () => {
   beforeEach(async () => await cleanDatabase());
 
   it('user is not created when creating a vote for non-existent event', async () => {
