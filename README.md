@@ -21,7 +21,7 @@ npm install
 Run development environment in Docker
 
 ```bash
-docker-compose upNode
+docker-compose up
 ```
 
 Run migrations
@@ -53,6 +53,28 @@ npm run test:all
 ```
 
 Integration tests are run inside Docker against a PostgreSql database.
+
+## Formatting and linting
+
+Project uses ESlint and Prettier. If you are using VS Code it is recommeded to install extensions Prettier and ESLint extensions.
+
+Format
+
+```bash
+npm run format
+```
+
+Lint
+
+```bash
+npm run lint
+```
+
+Lint and fix
+
+```bash
+npm run lint-and-fix
+```
 
 ## License
 
