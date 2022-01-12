@@ -26,17 +26,6 @@ services:
       - testdb
     networks:
       - testapi
-    command:
-      [
-        'chmod',
-        '+x',
-        'wait-for-it.sh',
-        'test.sh',
-        '--',
-        './wait-for-it.sh',
-        'testdb:5432',
-        '--',
-        './test.sh',
-      ]
+    command: ['./wait-for-it.sh', 'testdb:5432', '--', './test.sh']
 networks:
   testapi:
