@@ -46,7 +46,7 @@ Project has unit and integration tests. Unit tests can be run on their own by ru
 npm test
 ```
 
-To run tests with integrations tests use command
+To run tests with integration tests run command
 
 ```bash
 npm run test:all
