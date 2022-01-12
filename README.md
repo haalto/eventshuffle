@@ -36,7 +36,7 @@ Run seeds into database
 npm run seed:run
 ```
 
-Your environment should be ready now at url [localhost:5000/api/v1/event/list](localhost:5000/api/v1/event/list)
+Your environment should be ready now at url `localhost:5000/api/v1/event/list`
 
 ## Testing
 
