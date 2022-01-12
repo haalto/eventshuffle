@@ -19,6 +19,9 @@ import {
   PostVoteResponseSchema,
 } from './schemas';
 
+/**
+ * Event routes
+ */
 export const eventRoutes = (server: FastifyInstance) => {
   server.get(
     '/list',

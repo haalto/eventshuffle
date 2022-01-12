@@ -17,6 +17,11 @@ import {
   PostVoteParams,
 } from './schemas';
 
+/**
+ * Get event
+ * @param request
+ * @param reply
+ */
 export const getEvent = async (
   request: FastifyRequest<{ Params: GetEventParams }>,
   reply: FastifyReply,
@@ -29,6 +34,11 @@ export const getEvent = async (
   reply.send(event);
 };
 
+/**
+ * Create new event
+ * @param request
+ * @param reply
+ */
 export const postEvent = async (
   request: FastifyRequest<{ Body: PostEventBody }>,
   reply: FastifyReply,
@@ -39,6 +49,11 @@ export const postEvent = async (
   reply.send({ id });
 };
 
+/**
+ *
+ * @param request Get all events
+ * @param reply
+ */
 export const getEvents = async (
   request: FastifyRequest,
   reply: FastifyReply,
@@ -47,6 +62,11 @@ export const getEvents = async (
   reply.send({ events });
 };
 
+/**
+ * Get event results
+ * @param request
+ * @param reply
+ */
 export const getEventResults = async (
   request: FastifyRequest<{ Params: GetEventResultParams }>,
   reply: FastifyReply,
@@ -56,6 +76,11 @@ export const getEventResults = async (
   reply.send(event);
 };
 
+/**
+ * Create new vote
+ * @param request
+ * @param reply
+ */
 export const postVote = async (
   request: FastifyRequest<{ Params: PostVoteParams; Body: PostVoteBody }>,
   reply: FastifyReply,
