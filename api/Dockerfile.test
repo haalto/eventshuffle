@@ -5,4 +5,4 @@ WORKDIR /usr/src/app
 COPY package*.json .
 RUN npm install
 COPY . .
-RUN 'chmod +x ./wait-for-it.sh ./test.sh'
+RUN 'chmod +x wait-for-it.sh test.sh'
