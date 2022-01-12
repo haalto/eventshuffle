@@ -54,6 +54,14 @@ npm run test:all
 
 Integration tests are run inside Docker against a PostgreSql database.
 
+If you encounter following error when trying to run integration tests: `/usr/local/bin/docker-entrypoint.sh: 8: exec: ./wait-for-it.sh: Permission denied`
+
+Please run following command on your machine
+
+```bash
+chmod +x wait-for-it.sh test.sh
+```
+
 ## Formatting and linting
 
 Project uses ESlint and Prettier. If you are using VS Code it is recommeded to install extensions Prettier and ESLint extensions.
