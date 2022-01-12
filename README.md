@@ -52,15 +52,7 @@ To run tests with integrations tests use command
 npm run test:all
 ```
 
-Integration tests are run inside Docker against a PostgreSql database.
-
-If you encounter following error when trying to run integration tests: `/usr/local/bin/docker-entrypoint.sh: 8: exec: ./wait-for-it.sh: Permission denied`
-
-Please run following command on your machine
-
-```bash
-chmod +x wait-for-it.sh test.sh
-```
+Integration tests are run inside Docker against a PostgreSQL database.
 
 ## Formatting and linting
 
