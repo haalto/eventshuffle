@@ -10,7 +10,7 @@ Make sure you have ports `5000` and `5432` free on your machine.
 
 ## Installation
 
-To install and run the application through the following steps inside `api` folder:
+To install and run the application go through the following steps inside `api` folder:
 
 Install dependencies
 
