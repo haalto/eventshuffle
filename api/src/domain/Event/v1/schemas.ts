@@ -77,7 +77,7 @@ export const PostVoteParamsSchema = Type.Object({
 
 export const PostVoteBodySchema = Type.Object({
   name: Type.String(),
-  votes: Type.Array(Type.String()),
+  votes: Type.Array(DateSchema),
 });
 
 export const PostVoteResponseSchema = {
